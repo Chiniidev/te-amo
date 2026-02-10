@@ -18,14 +18,17 @@
 
     .card {
       background: rgba(0, 0, 0, 0.35);
-      padding: 30px;
+      padding: 20px;
       border-radius: 20px;
       text-align: center;
-      max-width: 400px;
+      width: 90%;
+      max-width: 380px;
+      max-height: 90vh;
+      overflow-y: auto;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       position: relative;
       z-index: 2;
-    }
+}
 
   img {
       width: 100%;
@@ -66,12 +69,13 @@
     }
 
     /* Corazones */
-    .heart {
+    .heart .heart {
       position: fixed;
       font-size: 24px;
       animation: explode 1.5s ease-out forwards;
       pointer-events: none;
-    }
+      z-index: 999;
+}
 
     @keyframes explode {
       0% {
@@ -144,4 +148,5 @@
 </body>
 
 </html>
+
 
