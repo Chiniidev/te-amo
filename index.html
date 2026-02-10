@@ -18,30 +18,37 @@
     }
 
     .card {
-      background: rgba(0, 0, 0, 0.35);
-      padding: 20px;
-      border-radius: 20px;
-      text-align: center;
       width: 90%;
       max-width: 380px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      height: 480px;
+      border-radius: 22px;
       position: relative;
-      z-index: 2;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+      overflow: hidden;
+
+      /* FOTO DE FONDO */
+      background-image: url("foto.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #000;
     }
 
-    img {
-      width: 100%;
-      max-height: 220px;
-      object-fit: contain;
-      background: rgba(0,0,0,0.2);
-      border-radius: 15px;
-      margin-bottom: 20px;
+    /* capa oscura para que se lea */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
     }
 
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     #buttons {
@@ -50,7 +57,7 @@
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 22px;
       margin: 10px;
       border: none;
       border-radius: 25px;
@@ -70,16 +77,13 @@
     }
 
     .message {
-      margin-top: 40px;
+      margin-top: 30px;
       font-size: 22px;
-      min-height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 30px;
       opacity: 0;
     }
 
-    /* Corazones */
+    /* corazones */
     .heart {
       position: fixed;
       font-size: 24px;
@@ -90,7 +94,7 @@
 
     @keyframes explode {
       0% {
-        transform: scale(0) translate(0, 0);
+        transform: scale(0) translate(0,0);
         opacity: 1;
       }
       100% {
@@ -118,23 +122,22 @@
 <body>
 
   <div class="card" id="card">
-    <img src="foto.png" alt="Foto">
+    <div class="overlay">
+      <h2>¿Sabías que te amo?</h2>
 
-    <h2>¿Sabías que te amo?</h2>
+      <div id="buttons">
+        <button class="yes" onclick="showYes()">Sí</button>
+        <button class="no" id="noBtn">No</button>
+      </div>
 
-    <div id="buttons">
-      <button class="yes" onclick="showYes()">Sí</button>
-      <button class="no" id="noBtn">No</button>
+      <div id="message" class="message"></div>
     </div>
-
-    <div id="message" class="message"></div>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const card = document.getElementById("card");
 
-    // Botón No que se escapa
     noBtn.addEventListener("mouseenter", () => {
       const rect = card.getBoundingClientRect();
       const maxX = rect.width - noBtn.offsetWidth - 20;
@@ -153,25 +156,22 @@
       msg.innerText = "Te amo mucho mucho mucho ❤️";
       msg.style.opacity = "1";
       msg.style.animation = "none";
-      msg.offsetHeight; // reflow
+      msg.offsetHeight;
       msg.style.animation = "pop 0.5s ease-out forwards";
 
       explodeHearts();
     }
 
     function explodeHearts() {
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 25; i++) {
         const heart = document.createElement("div");
         heart.className = "heart";
         heart.innerText = "❤️";
 
-        const x = (Math.random() - 0.5) * 400 + "px";
-        const y = (Math.random() - 0.5) * 400 + "px";
-
         heart.style.left = "50%";
         heart.style.top = "50%";
-        heart.style.setProperty("--x", x);
-        heart.style.setProperty("--y", y);
+        heart.style.setProperty("--x", (Math.random()-0.5)*400 + "px");
+        heart.style.setProperty("--y", (Math.random()-0.5)*400 + "px");
 
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 1500);
@@ -181,6 +181,7 @@
 
 </body>
 </html>
+
 
 
 
