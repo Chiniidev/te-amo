@@ -63,13 +63,15 @@
     }
 
     .message {
-      margin-top: 60px;
+      margin-top: 40px;
       font-size: 22px;
       display: none;
+      animation: pop 0.5s ease-out forwards;
+}
     }
 
     /* Corazones */
-    .heart .heart {
+    .heart {
       position: fixed;
       font-size: 24px;
       animation: explode 1.5s ease-out forwards;
@@ -86,6 +88,20 @@
         transform: scale(1.5) translate(var(--x), var(--y));
         opacity: 0;
       }
+      @keyframes pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+  }
+    70% {
+        transform: scale(1.2);
+        opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+      
+}
     }
   </style>
 </head>
@@ -148,5 +164,6 @@
 </body>
 
 </html>
+
 
 
