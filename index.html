@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Para vos ❤️</title>
+
   <style>
     body {
       margin: 0;
@@ -28,18 +29,24 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       position: relative;
       z-index: 2;
-}
+    }
 
-  img {
+    img {
       width: 100%;
       max-height: 220px;
-      object-fit: cover;
+      object-fit: contain;
+      background: rgba(0,0,0,0.2);
       border-radius: 15px;
       margin-bottom: 20px;
-}
+    }
 
     h2 {
       margin-bottom: 20px;
+    }
+
+    #buttons {
+      position: relative;
+      height: 80px;
     }
 
     button {
@@ -65,9 +72,11 @@
     .message {
       margin-top: 40px;
       font-size: 22px;
-      display: none;
-      animation: pop 0.5s ease-out forwards;
-}
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
     }
 
     /* Corazones */
@@ -77,7 +86,7 @@
       animation: explode 1.5s ease-out forwards;
       pointer-events: none;
       z-index: 999;
-}
+    }
 
     @keyframes explode {
       0% {
@@ -88,23 +97,24 @@
         transform: scale(1.5) translate(var(--x), var(--y));
         opacity: 0;
       }
-      @keyframes pop {
-    0% {
-        transform: scale(0.5);
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.6);
         opacity: 0;
-  }
-    70% {
-        transform: scale(1.2);
+      }
+      70% {
+        transform: scale(1.15);
         opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
-      
-}
+      }
+      100% {
+        transform: scale(1);
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="card" id="card">
@@ -112,8 +122,10 @@
 
     <h2>¿Sabías que te amo?</h2>
 
-    <button class="yes" onclick="showYes()">Sí</button>
-    <button class="no" id="noBtn">No</button>
+    <div id="buttons">
+      <button class="yes" onclick="showYes()">Sí</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
 
     <div id="message" class="message"></div>
   </div>
@@ -134,8 +146,15 @@
 
     function showYes() {
       const msg = document.getElementById("message");
+      const buttons = document.getElementById("buttons");
+
+      buttons.style.display = "none";
+
       msg.innerText = "Te amo mucho mucho mucho ❤️";
-      msg.style.display = "block";
+      msg.style.opacity = "1";
+      msg.style.animation = "none";
+      msg.offsetHeight; // reflow
+      msg.style.animation = "pop 0.5s ease-out forwards";
 
       explodeHearts();
     }
@@ -155,14 +174,12 @@
         heart.style.setProperty("--y", y);
 
         document.body.appendChild(heart);
-
         setTimeout(() => heart.remove(), 1500);
       }
     }
   </script>
 
 </body>
-
 </html>
 
 
